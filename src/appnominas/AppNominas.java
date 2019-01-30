@@ -112,7 +112,7 @@ public class AppNominas {
                     break;
 
                 case 5:
-                    System.out.println("Nombre del archivo");
+                    System.out.print("Introduce nombre del archivo(.xml, .obj, .csv, .json): ");
                     nombreArchivo = sc.nextLine();
                     formato = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1);
 
@@ -154,7 +154,7 @@ public class AppNominas {
                 case 6:
                     do {
                         error = false;
-                        System.out.println("Nombre del archivo");
+                        System.out.print("Introduce nombre del archivo(.xml, .obj, .csv, .json): ");
                         nombreArchivo = sc.nextLine();
                         formato = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1);
 
