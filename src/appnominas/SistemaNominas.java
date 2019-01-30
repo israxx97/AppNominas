@@ -92,15 +92,40 @@ public class SistemaNominas {
     }
 
     public float getTotalSalarios() {
-        return 0;
+        float acumulador = 0;
+
+        for (Empleado empleado : empleados) {
+            acumulador += empleado.ingresos();
+
+        }
+
+        return acumulador;
+
     }
 
-    public int guardarEmpleados() {
-        return 0;
+    public int guardarEmpleados() throws DaoException {
+        int n = 0;
+
+        if (empleadoDao != null) {
+            n = empleadoDao.insertar(empleados);
+
+        }
+
+        return n;
+
     }
 
-    public int cargarEmpleados() {
-        return 0;
+    public int cargarEmpleados() throws DaoException {
+        int n = 0;
+
+        if (empleadoDao != null) {
+            empleados = empleadoDao.listar();
+            n = empleados.size();
+
+        }
+
+        return n;
+
     }
 
 }

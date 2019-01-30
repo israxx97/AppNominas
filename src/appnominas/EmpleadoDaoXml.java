@@ -26,7 +26,7 @@ public class EmpleadoDaoXml implements EmpleadoDao {
 
     @Override
     public List<Empleado> listar() throws DaoException {
-        List<Empleado> listado;
+        List<Empleado> listado = null;
 
         XStream xstream = new XStream(new DomDriver());
         XStream.setupDefaultSecurity(xstream);

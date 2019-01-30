@@ -19,8 +19,10 @@ public class AppNominas {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int opcion, opcion2, horas;
-        String dni, nombre;
+        String dni, nombre, nombreArchivo, formato;
         float salario, salarioHora;
+        boolean error;
+        EmpleadoDao empleadoDao = null;
         Empleado empleado;
         SistemaNominas sn = new SistemaNominas();
 
@@ -105,15 +107,95 @@ public class AppNominas {
                     break;
 
                 case 4:
-                    System.out.print(sn.getTotalSalarios());
+                    System.out.println(sn.getTotalSalarios() + "€");
 
                     break;
 
                 case 5:
+                    System.out.println("Nombre del archivo");
+                    nombreArchivo = sc.nextLine();
+                    formato = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1);
+
+                    switch (formato) {
+                        case "obj":
+                            empleadoDao = new EmpleadoDaoObj(nombreArchivo);
+
+                            break;
+
+                        case "csv":
+                            empleadoDao = new EmpleadoDaoCsv(nombreArchivo);
+
+                            break;
+
+                        case "json":
+                            empleadoDao = new EmpleadoDaoJson(nombreArchivo);
+
+                            break;
+
+                        case "xml":
+                            empleadoDao = new EmpleadoDaoXml(nombreArchivo);
+
+                            break;
+
+                    }
+
+                    sn.setEmpleadoDao(empleadoDao);
+
+                    try {
+                        sn.guardarEmpleados();
+
+                    } catch (DaoException daoe) {
+                        System.out.println(daoe.getMessage());
+
+                    }
 
                     break;
 
                 case 6:
+                    do {
+                        error = false;
+                        System.out.println("Nombre del archivo");
+                        nombreArchivo = sc.nextLine();
+                        formato = nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1);
+
+                        switch (formato) {
+                            case "obj":
+                                empleadoDao = new EmpleadoDaoObj(nombreArchivo);
+
+                                break;
+
+                            case "csv":
+                                empleadoDao = new EmpleadoDaoCsv(nombreArchivo);
+
+                                break;
+
+                            case "json":
+                                empleadoDao = new EmpleadoDaoJson(nombreArchivo);
+
+                                break;
+
+                            case "xml":
+                                empleadoDao = new EmpleadoDaoXml(nombreArchivo);
+
+                                break;
+
+                            default:
+                                error = true;
+                                System.out.println("Extensión incorrecta");
+
+                        }
+
+                    } while (error);
+
+                    sn.setEmpleadoDao(empleadoDao);
+
+                    try {
+                        sn.cargarEmpleados();
+
+                    } catch (DaoException daoe) {
+                        System.out.println(daoe.toString());
+
+                    }
 
                     break;
 
