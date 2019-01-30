@@ -46,8 +46,8 @@ public class EmpleadoEventual extends Empleado {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Salario hora: ").append(this.getSalarioHora()).append("\n");
-        sb.append("Horas: ").append(this.getHoras()).append("\n");
+        sb.append("Salario hora: ").append(this.getSalarioHora()).append("€").append("\n");
+        sb.append("Horas: ").append(this.getHoras()).append("h").append("\n");
 
         return sb.toString();
 

@@ -34,7 +34,7 @@ public class EmpleadoFijo extends Empleado {
         StringBuilder sb = new StringBuilder();
 
         sb.append(super.toString());
-        sb.append("Salario: ").append(this.getSalario()).append("\n");
+        sb.append("Salario: ").append(this.getSalario()).append("€").append("\n");
 
         return sb.toString();
 

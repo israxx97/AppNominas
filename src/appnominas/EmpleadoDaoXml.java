@@ -7,6 +7,7 @@ package appnominas;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
@@ -25,9 +26,13 @@ public class EmpleadoDaoXml implements EmpleadoDao {
 
     @Override
     public List<Empleado> listar() throws DaoException {
-        List<Empleado> listado = null;
+        List<Empleado> listado;
 
         XStream xstream = new XStream(new DomDriver());
+        XStream.setupDefaultSecurity(xstream);
+        xstream.allowTypeHierarchy(EmpleadoFijo.class);
+        xstream.allowTypeHierarchy(EmpleadoEventual.class);
+        listado = (List<Empleado>) xstream.fromXML(path.toFile());
 
         return listado;
 
@@ -35,6 +40,17 @@ public class EmpleadoDaoXml implements EmpleadoDao {
 
     @Override
     public int insertar(List<Empleado> empleados) throws DaoException {
+        XStream xstream = new XStream(new DomDriver());
+
+        try (BufferedWriter bw = Files.newBufferedWriter(path)) {
+            bw.write(xstream.toXML(empleados));
+
+        } catch (IOException ioe) {
+            throw new DaoException(ioe.toString());
+
+        }
+
+        return empleados.size();
 
     }
 

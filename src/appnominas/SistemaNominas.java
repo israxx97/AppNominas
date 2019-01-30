@@ -7,6 +7,7 @@ package appnominas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  *
@@ -43,15 +44,51 @@ public class SistemaNominas {
     }
 
     public boolean incluirEmpleado(Empleado empleado) {
-        return true;
+        boolean incluido = false;
+
+        if (!empleados.contains(empleado)) {
+            incluido = true;
+            empleados.add(empleado);
+
+        }
+
+        return incluido;
+
     }
 
     public boolean eliminarEmpleado(String dni) {
-        return true;
+        boolean eliminado = false;
+        int posicion = -1;
+
+        for (int i = 0; i < empleados.size() && posicion == -1; i++) {
+            if (empleados.get(i).getDni().equals(dni)) {
+                posicion = i;
+
+            }
+
+        }
+
+        if (posicion != -1) {
+            eliminado = true;
+            empleados.remove(posicion);
+
+        }
+
+        return eliminado;
+
     }
 
     public String listarEmpleados() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        ListIterator<Empleado> li = empleados.listIterator();
+
+        while (li.hasNext()) {
+            sb.append(li.next());
+
+        }
+
+        return sb.toString();
+
     }
 
     public float getTotalSalarios() {
